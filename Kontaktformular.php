@@ -1,26 +1,26 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $vorname = isset($_POST["Vorname"]) ? htmlspecialchars(trim($_POST["Vorname"])) : "";
-    $name = isset($_POST["name"]) ? htmlspecialchars(trim($_POST["name"])) : "";
+    $firstlastname = isset($_POST["firstname"]) ? htmlspecialchars(trim($_POST["firstname"])) : "";
+    $lastname = isset($_POST["lastname"]) ? htmlspecialchars(trim($_POST["lastname"])) : "";
     $email = isset($_POST["email"]) ? filter_var($_POST["email"], FILTER_VALIDATE_EMAIL) : "";
     $message = isset($_POST["message"]) ? htmlspecialchars(trim($_POST["message"])) : "";
 
-    if (empty($vorname) || empty($name) || empty($email) || empty($message)) {
-        echo "Bitte füllen Sie alle erforderlichen Felder aus.";
+    if (empty($firstlastname) || empty($lastname) || empty($email) || empty($message)) {
+        echo "Please fill out all Required fields!.";
     } elseif (!$email) {
-        echo "Bitte geben Sie eine gültige E-Mail-Adresse ein.";
+        echo "Please enter a Valid Email Adresse";
     } else {
         $to = "andy.nguyen@bene-edu.ch";  
-        $subject = "Neue Kontaktanfrage von $vorname $name";
+        $subject = "New Contact request from: $firstlastname $lastname";
         $headers = "From: $email";
 
         if (mail($to, $subject, $message, $headers)) {
-            echo "Gesendet!";
+            echo "Send!";
         } else {
-            echo "Fehler beim Senden der Nachricht. Bitte versuchen Sie es erneut.";
+            echo "An Error occured while sending your message, please try again!";
         }
     }
 } else {
-    echo "Ungültige Anforderungsmethode";
+    echo "Invalid Request Method!";
 }
 ?>
